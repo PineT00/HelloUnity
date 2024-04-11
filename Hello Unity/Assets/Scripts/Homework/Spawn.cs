@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawn : MonoBehaviour
@@ -9,28 +10,24 @@ public class Spawn : MonoBehaviour
 
     List<GameObject> goList = new List<GameObject>();
 
-    // Update is called once per frame
+
+    private void Awake()
+    {
+        Create();
+    }
+
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            for (int i = 0; i < 10; i++)
-            {
-                var go = Instantiate(prefeb, Random.insideUnitSphere * 10, Random.rotation);
-                goList.Add(go);
-            }
-
-        }
-
-        if (Input.GetKeyDown(KeyCode.RightShift))
-        {
-            foreach (GameObject go in goList)
-            {
-                Destroy(go);
-            }
-            goList.Clear();
-        }
-
     }
+
+    public void Create()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            var go = Instantiate(prefeb, Random.insideUnitSphere * 10, Random.rotation);
+            goList.Add(go);
+        }
+    }
+
 }
