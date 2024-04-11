@@ -5,7 +5,7 @@ using UnityEngine;
 public class Exercise1 : MonoBehaviour
 {
     float rotSpeed = 360f;
-    float speed = 10f;
+    //float speed = 10f;
     // Start is called before the first frame update
     void Start()
     {
