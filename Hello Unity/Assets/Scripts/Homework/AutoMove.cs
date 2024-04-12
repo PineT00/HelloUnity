@@ -1,17 +1,19 @@
-using System.Collections;
+
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
 public class AutoMove : MonoBehaviour
 {
+    /// <summary>
+    /// 리스트로 수정할것. 고정배열은 안어울림
+    /// </summary>
     public float speed = 1f;
     public float rSpeed = 1f;
-    public GameObject[] targets;
-    public Renderer[] rens;
+    public List<GameObject> targets = new List<GameObject>();
+    public List<Renderer> rens = new List<Renderer>();
     public Spawn spawner;
-    public float delay = 3f;
+    public float delay = 2f;
     public float timer = 0f;
 
 
@@ -25,13 +27,17 @@ public class AutoMove : MonoBehaviour
 
     private void Start()
     {
-        targets = GameObject.FindGameObjectsWithTag("Sphere");
-        rens = new Renderer[targets.Length];
-        for (int i = 0; i < targets.Length; ++i)
+        GameObject[] targetObjects = GameObject.FindGameObjectsWithTag("Sphere");
+        foreach (GameObject obj in targetObjects)
         {
-            rens[i] = targets[i].GetComponent<Renderer>();
+            targets.Add(obj);
+            Renderer renderer = obj.GetComponent<Renderer>();
+            if (renderer != null)
+            {
+                rens.Add(renderer);
+            }
         }
-        int curr = Random.Range(0, targets.Length);
+        int curr = Random.Range(0, targets.Count);
         currTarget = targets[curr];
         currRens = rens[curr];
         currRens.material.color = Color.green;
@@ -49,44 +55,49 @@ public class AutoMove : MonoBehaviour
             transform.position = Vector3.Lerp(transform.position, currTarget.transform.position, Time.deltaTime * speed);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * speed);
 
-            if(Vector3.Distance(currTarget.transform.position, transform.position) < 0.3f)
+            if (Vector3.Distance(currTarget.transform.position, transform.position) < 0.3f)
             {
                 Destroy(currTarget);
+                currTarget = null;
             }
         }
         else
         {
-            if(timer > delay)
+            if (timer >= delay)
             {
                 if (!isActive(targets))
                 {
                     spawner.Create();
-                    targets = GameObject.FindGameObjectsWithTag("Sphere");
-                    rens = new Renderer[targets.Length];
-                    for (int i = 0; i < targets.Length; ++i)
+                    GameObject[] targetObjects = GameObject.FindGameObjectsWithTag("Sphere");
+                    foreach (GameObject obj in targetObjects)
                     {
-                        rens[i] = targets[i].GetComponent<Renderer>();
+                        targets.Add(obj);
+                        Renderer renderer = obj.GetComponent<Renderer>();
+                        if (renderer != null)
+                        {
+                            rens.Add(renderer);
+                        }
                     }
                 }
 
-                int curr = Random.Range(0, targets.Length);
+                int curr = Random.Range(0, targets.Count);
                 currTarget = targets[curr];
                 currRens = rens[curr];
-                currRens.material.color = Color.green;
 
+                if (currTarget != null && currRens != null)
+                {
+                    currRens.material.color = Color.green;
+                }
                 timer = 0;
             }
             else
             {
                 timer += Time.deltaTime;
             }
-
         }
-
-
     }
 
-    private bool isActive(GameObject[] list)
+    private bool isActive(List<GameObject> list)
     {
         foreach (GameObject target in list)
         {

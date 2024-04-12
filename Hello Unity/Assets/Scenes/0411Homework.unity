@@ -149,7 +149,7 @@ Transform:
   m_GameObject: {fileID: 7768312}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.0112524, y: 0.19419011, z: -5.91659}
+  m_LocalPosition: {x: 0.77, y: 1.4, z: -5.91659}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -167,7 +167,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f3dad8fa6b960914cab886ae718fe92c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  prefeb: {fileID: 0}
+  prefeb: {fileID: 205112028791088837, guid: a2e2036e859f49b4eaaf5270e299f4a9, type: 3}
 --- !u!1 &53695396
 GameObject:
   m_ObjectHideFlags: 0
@@ -377,6 +377,7 @@ GameObject:
   - component: {fileID: 1211830615}
   - component: {fileID: 1211830614}
   - component: {fileID: 1211830613}
+  - component: {fileID: 1211830617}
   m_Layer: 0
   m_Name: CubeBoy
   m_TagString: Untagged
@@ -471,6 +472,27 @@ Transform:
   - {fileID: 53695397}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1211830617
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211830611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940cd43722dc74d48abfe7b28f223334, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 6.75
+  rSpeed: 1
+  targets: []
+  rens: []
+  spawner: {fileID: 7768315}
+  delay: 2
+  timer: 0
+  currTarget: {fileID: 0}
+  currRens: {fileID: 0}
 --- !u!1 &1953605514
 GameObject:
   m_ObjectHideFlags: 0

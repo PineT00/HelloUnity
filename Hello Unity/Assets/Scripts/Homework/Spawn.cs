@@ -16,6 +16,11 @@ public class Spawn : MonoBehaviour
         Create();
     }
 
+    private void Start()
+    {
+        
+    }
+
     void Update()
     {
 
